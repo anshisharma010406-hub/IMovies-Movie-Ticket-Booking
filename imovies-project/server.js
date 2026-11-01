@@ -151,5 +151,14 @@ app.post("/admin/movies/:id/delete", requireAdmin, async (req, res) => {
 app.use((err, req, res, next) => { console.error(err); res.status(500).send("Something went wrong."); });
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/imovies")
-  .then(() => app.listen(PORT, () => console.log(`IMovies running at http://localhost:${PORT}`)))
+  .then(() =>
+    app.get("/check-movies", async (req, res) => {
+  try {
+    const movies = await Movie.find({}, { title: 1 });
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+     app.listen(PORT, () => console.log(`IMovies running at http://localhost:${PORT}`)))
   .catch(err => { console.error("MongoDB connection failed:", err.message); process.exit(1); });
