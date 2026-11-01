@@ -1,1 +1,75 @@
-<%- include("partials/header") %><section class="hero"><div><p class="eyebrow">YOUR MOVIE NIGHT STARTS HERE</p><h1>Book your favourite<br><span>movie tickets.</span></h1><p>Explore movies, choose your show and reserve your seats in a few clicks.</p><a class="btn" href="#movies">Explore Movies</a></div></section><section id="movies"><div class="sectionhead"><div><p class="eyebrow">NOW SHOWING</p><h2>Popular Movies</h2></div><span><%= movies.length %> movies</span></div><div class="moviegrid"><% movies.forEach(movie=>{ %><article class="moviecard"><img src="<%= movie.poster || 'https://placehold.co/400x600?text=IMovies' %>" alt="<%= movie.title %> poster" onerror="this.src='https://placehold.co/400x600?text=IMovies'"><div class="movieinfo"><h3><%= movie.title %></h3><p><%= movie.genre %> · <%= movie.duration %></p><div class="cardbottom"><span>From ₹<%= movie.price %></span><a href="/movie/<%= movie._id %>">Book Now →</a></div></div></article><% }) %></div><% if(!movies.length){ %><p>No movies available. Ask the admin to add movies.</p><% } %></section><%- include("partials/footer") %>
+
+<%- include("partials/header") %>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">YOUR MOVIE NIGHT STARTS HERE</p>
+    <h1>
+      Book your favourite
+      <br>
+      <span>movie tickets.</span>
+    </h1>
+    <p>
+      Explore movies, choose your show and reserve your seats in a few clicks.
+    </p>
+    <a class="btn" href="#movies">Explore Movies</a>
+  </div>
+</section>
+
+<section id="movies">
+  <div class="sectionhead">
+    <div>
+      <p class="eyebrow">NOW SHOWING</p>
+      <h2>Popular Movies</h2>
+    </div>
+
+    <span><%= movies.length %> movies</span>
+  </div>
+
+  <div class="moviegrid">
+
+    <% movies.forEach(movie => { %>
+
+      <article class="moviecard">
+
+        <img
+          src="<%= movie.poster || 'https://placehold.co/400x600?text=IMovies' %>"
+          alt="<%= movie.title %> poster"
+          loading="lazy"
+          onerror="this.onerror=null; this.src='https://placehold.co/400x600?text=IMovies';"
+        >
+
+        <div class="movieinfo">
+
+          <h3><%= movie.title %></h3>
+
+          <p>
+            <%= movie.genre %> · <%= movie.duration %>
+          </p>
+
+          <div class="cardbottom">
+
+            <span>From ₹<%= movie.price %></span>
+
+            <a href="/movie/<%= movie._id %>">
+              Book Now →
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+    <% }) %>
+
+  </div>
+
+  <% if (!movies.length) { %>
+
+    <p>No movies available. Ask the admin to add movies.</p>
+
+  <% } %>
+
+</section>
+
+<%- include("partials/footer") %>
